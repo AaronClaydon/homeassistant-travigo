@@ -9,17 +9,17 @@ if TYPE_CHECKING:
     from homeassistant.config_entries import ConfigEntry
     from homeassistant.loader import Integration
 
-    from .api import IntegrationBlueprintApiClient
+    from .api import TravigoApiClient
     from .coordinator import BlueprintDataUpdateCoordinator
 
 
-type IntegrationBlueprintConfigEntry = ConfigEntry[IntegrationBlueprintData]
+type TravigoConfigEntry = ConfigEntry[TravigoData]
 
 
 @dataclass
-class IntegrationBlueprintData:
+class TravigoData:
     """Data for the Blueprint integration."""
 
-    client: IntegrationBlueprintApiClient
+    client: TravigoApiClient
     coordinator: BlueprintDataUpdateCoordinator
     integration: Integration

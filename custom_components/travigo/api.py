@@ -40,13 +40,11 @@ class TravigoApiClient:
 
     def __init__(
         self,
-        username: str,
-        password: str,
+        token: str,
         session: aiohttp.ClientSession,
     ) -> None:
         """Sample API Client."""
-        self._username = username
-        self._password = password
+        self._token = token
         self._session = session
 
     async def async_get_data(self) -> Any:

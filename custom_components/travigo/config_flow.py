@@ -15,7 +15,7 @@ from .api import (
     TravigoApiClientCommunicationError,
     TravigoApiClientError,
 )
-from .const import DOMAIN, LOGGER
+from .const import DOMAIN, LOGGER, CONF_ORIGIN_STOP, CONF_DESTINATION_STOP
 
 
 class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
@@ -48,11 +48,11 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     ## Do NOT use this in production code
                     ## The unique_id should never be something that can change
                     ## https://developers.home-assistant.io/docs/config_entries_config_flow_handler#unique-ids
-                    unique_id=slugify(user_input[CONF_API_KEY])
+                    unique_id=slugify(f"{user_input[CONF_ORIGIN_STOP]}:{user_input[CONF_DESTINATION_STOP]}")
                 )
                 self._abort_if_unique_id_configured()
                 return self.async_create_entry(
-                    title="Travigo",
+                    title=f"{user_input[CONF_ORIGIN_STOP]} <-> {user_input[CONF_DESTINATION_STOP]}",
                     data=user_input,
                 )
 
@@ -63,6 +63,16 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     vol.Required(CONF_API_KEY): selector.TextSelector(
                         selector.TextSelectorConfig(
                             type=selector.TextSelectorType.PASSWORD,
+                        ),
+                    ),
+                    vol.Required(CONF_ORIGIN_STOP): selector.TextSelector(
+                        selector.TextSelectorConfig(
+                            type=selector.TextSelectorType.TEXT,
+                        ),
+                    ),
+                    vol.Required(CONF_DESTINATION_STOP): selector.TextSelector(
+                        selector.TextSelectorConfig(
+                            type=selector.TextSelectorType.TEXT,
                         ),
                     ),
                 },

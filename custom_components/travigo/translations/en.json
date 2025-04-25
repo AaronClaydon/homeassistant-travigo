@@ -4,7 +4,9 @@
             "user": {
                 "description": "If you need help with the configuration have a look here: https://github.com/aaronclaydon/homeassistant-travigo",
                 "data": {
-                    "api_key": "API Key"
+                    "api_key": "API Key",
+                    "origin_stop": "Origin",
+                    "destination_stop": "Destination"
                 }
             }
         },
